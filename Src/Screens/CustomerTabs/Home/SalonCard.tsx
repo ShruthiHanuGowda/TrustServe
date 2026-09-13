@@ -1,5 +1,5 @@
-import React from 'react';
 
+import React from 'react';
 import {
     View,
     Text,
@@ -7,16 +7,12 @@ import {
     TouchableOpacity,
     StyleSheet,
 } from 'react-native';
-
 import { useNavigation } from '@react-navigation/native';
-
 import { useUser } from '../../../context/UserContext';
-
 import {
     useMutation,
     useQuery,
 } from '@apollo/client';
-
 import {
     ADD_FAVORITE_SALON,
     REMOVE_FAVORITE_SALON,
@@ -71,6 +67,21 @@ type BusinessHours = {
     SUNDAY: BusinessDay;
 };
 
+type SalonLogoMedia = {
+    imageId?: string;
+    salonId?: string;
+    mediaType?: string;
+    key?: string;
+    objectUrl?: string | null;
+    status?: string;
+    uploadedAt?: string;
+    approvedAt?: string;
+    approvedBy?: string;
+    rejectedAt?: string | null;
+    rejectedBy?: string | null;
+    rejectionReason?: string | null;
+};
+
 type Props = {
     salon: {
         id: string;
@@ -101,7 +112,22 @@ type Props = {
 
         categories?: string[];
 
-        image?: string;
+        // ======================================================
+        // APPROVED SALON LOGO
+        // ======================================================
+        //
+        // This must come directly from GET_NEARBY_SALONS.
+        //
+        // IMPORTANT:
+        // SalonCard intentionally does NOT use:
+        //
+        // salon.image
+        // salon.logoUrl
+        // salon.coverImageUrl
+        //
+        // Only logoMedia is used for the salon logo.
+        //
+        logoMedia?: SalonLogoMedia | null;
     };
 };
 
@@ -298,6 +324,103 @@ export default function SalonCard({
 
 
     // ========================================================
+    // APPROVED LOGO
+    // ========================================================
+    //
+    // IMPORTANT:
+    //
+    // We ONLY use:
+    //
+    // salon.logoMedia.status
+    // salon.logoMedia.objectUrl
+    //
+    // We deliberately DO NOT use:
+    //
+    // salon.image
+    // salon.logoUrl
+    // salon.coverImageUrl
+    //
+    // The Lambda generates a fresh signed URL from the
+    // permanent S3 key every time nearbySalons() runs.
+    //
+    // ========================================================
+
+    const approvedLogo =
+        salon?.logoMedia?.status ===
+            'APPROVED'
+            ? (
+                salon?.logoMedia?.objectUrl ??
+                null
+            )
+            : null;
+
+
+    console.log(
+        '[SalonCard] Salon:',
+        {
+            salonId,
+            name:
+                salon?.name,
+
+            logoMedia:
+                salon?.logoMedia,
+
+            logoStatus:
+                salon?.logoMedia?.status,
+
+            logoKey:
+                salon?.logoMedia?.key,
+
+            hasLogoUrl:
+                Boolean(
+                    salon?.logoMedia?.objectUrl,
+                ),
+
+            approvedLogo:
+                Boolean(
+                    approvedLogo,
+                ),
+        },
+    );
+
+
+    // ========================================================
+    // LOGO ERROR STATE
+    // ========================================================
+    //
+    // Signed S3 URLs can expire.
+    //
+    // If the approved logo URL cannot be loaded,
+    // keep the image area blank instead of showing
+    // another/fake image.
+    //
+    // ========================================================
+
+    const [
+        logoLoadFailed,
+        setLogoLoadFailed,
+    ] = React.useState(false);
+
+
+    // ========================================================
+    // RESET LOGO ERROR
+    // ========================================================
+    //
+    // When Lambda returns a new signed URL, reset the
+    // previous image error so the new URL gets another chance.
+    //
+    // ========================================================
+
+    React.useEffect(() => {
+
+        setLogoLoadFailed(false);
+
+    }, [
+        approvedLogo,
+    ]);
+
+
+    // ========================================================
     // FAVORITE STATE
     // ========================================================
 
@@ -488,15 +611,15 @@ export default function SalonCard({
             }
 
 
+            const previousState =
+                isFavorite;
+
+
             try {
 
                 setFavoriteLoading(
                     true,
                 );
-
-
-                const previousState =
-                    isFavorite;
 
 
                 // ------------------------------------------------
@@ -609,9 +732,7 @@ export default function SalonCard({
                 );
 
                 setIsFavorite(
-                    previousStateFallback(
-                        isFavorite,
-                    ),
+                    previousState,
                 );
 
             }
@@ -626,6 +747,10 @@ export default function SalonCard({
 
         };
 
+
+    // ============================================================
+    // RENDER
+    // ============================================================
 
     return (
 
@@ -651,17 +776,71 @@ export default function SalonCard({
                 }
             >
 
-                <Image
-                    source={{
-                        uri:
-                            salon.image ||
-                            'https://picsum.photos/300/300',
-                    }}
-                    style={
-                        styles.image
-                    }
-                    resizeMode="cover"
-                />
+                {/* ==================================================
+                    APPROVED LOGO ONLY
+                ==================================================
+                
+                No fallback image is used.
+
+                If:
+                    - logoMedia is missing
+                    - logoMedia is not APPROVED
+                    - objectUrl is missing
+                    - signed URL fails
+
+                then the image area remains blank.
+                ================================================== */}
+
+                {!!approvedLogo &&
+                    !logoLoadFailed ? (
+
+                    <Image
+                        source={{
+                            uri: approvedLogo,
+                        }}
+                        style={styles.image}
+                        resizeMode="cover"
+                        onLoad={() => {
+                            console.log(
+                                '[SalonCard] ✅ LOGO LOADED:',
+                                {
+                                    salonId,
+                                    logoUrl: approvedLogo,
+                                },
+                            );
+                        }}
+                        onLoadStart={() => {
+                            console.log(
+                                '[SalonCard] 🔄 LOGO LOAD START:',
+                                salonId,
+                            );
+                        }}
+                        onError={(error) => {
+
+                            console.log(
+                                '[SalonCard] ❌ LOGO LOAD FAILED:',
+                                {
+                                    salonId,
+                                    error:
+                                        error?.nativeEvent,
+                                    url:
+                                        approvedLogo,
+                                },
+                            );
+
+                            setLogoLoadFailed(true);
+                        }}
+                    />
+
+                ) : (
+
+                    <View
+                        style={
+                            styles.image
+                        }
+                    />
+
+                )}
 
 
                 {/* ==================================================
@@ -909,17 +1088,6 @@ export default function SalonCard({
 
         </TouchableOpacity>
     );
-}
-
-
-// ============================================================
-// SAFE FAVORITE FALLBACK
-// ============================================================
-
-function previousStateFallback(
-    current: boolean,
-) {
-    return !current;
 }
 
 
@@ -1439,3 +1607,4 @@ const styles =
         },
 
     });
+

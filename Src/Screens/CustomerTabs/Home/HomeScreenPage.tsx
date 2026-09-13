@@ -106,24 +106,25 @@ type Salon = {
   distance: string;
   distanceValue: number;
   address: any;
-
-  /*
-   * IMPORTANT:
-   *
-   * price is optional.
-   *
-   * We must NOT use 0 when the backend has not
-   * returned a price because 0 would incorrectly
-   * pass the budget filter.
-   */
   price?: number;
-
-  image: string;
+  logoMedia?: {
+    imageId?: string;
+    salonId?: string;
+    mediaType?: string;
+    key?: string;
+    objectUrl?: string | null;
+    status?: string;
+    uploadedAt?: string;
+    approvedAt?: string;
+    approvedBy?: string;
+    rejectedAt?: string;
+    rejectedBy?: string;
+    rejectionReason?: string;
+  } | null;
+  image?: string | null;
   salonStatus?: SalonStatus;
   businessHours?: any;
-
   minServicePrice?: number;
-
   matchingServices?: NearbySalonService[];
 };
 
@@ -673,7 +674,7 @@ export default function HomeScreenPage() {
 
           maxPrice:
             selectedBudget.label === 'Any' ||
-            selectedBudget.max === Infinity
+              selectedBudget.max === Infinity
               ? null
               : selectedBudget.max,
 
@@ -748,8 +749,23 @@ export default function HomeScreenPage() {
 
 
           console.log(
-            '🏪 MATCHING SALONS:',
-            nearbySalons.length,
+            '🖼️ RAW LOGO MEDIA:',
+            JSON.stringify(
+              nearbySalons.map(
+                (salon: any) => ({
+                  salonId:
+                    salon?.salonId,
+
+                  salonName:
+                    salon?.salonName,
+
+                  logoMedia:
+                    salon?.logoMedia,
+                }),
+              ),
+              null,
+              2,
+            ),
           );
 
 
@@ -1021,9 +1037,25 @@ export default function HomeScreenPage() {
                   matchingServices:
                     matchingServices,
 
+                  logoMedia:
+                    item?.logoMedia
+                      ? {
+                        ...item.logoMedia,
+                        objectUrl:
+                          item?.logoMedia?.objectUrl ??
+                          null,
+                      }
+                      : null,
+
+                  /*
+                   * Kept only for compatibility with other
+                   * existing code.
+                   *
+                   * SalonCard must NOT use this field.
+                   */
                   image:
-                    item?.logoUrl ||
-                    'https://picsum.photos/300/300',
+                    item?.logoUrl ??
+                    null,
 
                   salonStatus:
                     item?.salonStatus,
@@ -1089,7 +1121,7 @@ export default function HomeScreenPage() {
 
 
         } catch (
-          error: any
+        error: any
         ) {
 
           /*
@@ -1300,7 +1332,7 @@ export default function HomeScreenPage() {
 
 
         } catch (
-          error
+        error
         ) {
 
           console.log(
@@ -2146,7 +2178,7 @@ export default function HomeScreenPage() {
         }
 
       } catch (
-        error
+      error
       ) {
 
         console.log(

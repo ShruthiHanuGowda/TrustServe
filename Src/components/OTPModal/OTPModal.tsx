@@ -447,13 +447,13 @@ export default function OTPModal({
                 ICON
             ================================================== */}
 
-            <View style={styles.iconContainer}>
+            {/* <View style={styles.iconContainer}>
 
               <Text style={styles.icon}>
                 ✓
               </Text>
 
-            </View>
+            </View> */}
 
 
             {/* ==================================================

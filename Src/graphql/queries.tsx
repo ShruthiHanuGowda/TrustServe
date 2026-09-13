@@ -331,7 +331,59 @@ export const GET_NEARBY_SALONS = gql`
       salonName
       averageRating
       totalReviews
+
+      # ============================================================
+      # SALON MEDIA
+      # ============================================================
       logoUrl
+      coverImageUrl
+      galleryImages
+
+      logoMedia {
+        imageId
+        salonId
+        mediaType
+        key
+        objectUrl
+        status
+        uploadedAt
+        approvedAt
+        approvedBy
+        rejectedAt
+        rejectedBy
+        rejectionReason
+      }
+
+      coverMedia {
+        imageId
+        salonId
+        mediaType
+        key
+        objectUrl
+        status
+        uploadedAt
+        approvedAt
+        approvedBy
+        rejectedAt
+        rejectedBy
+        rejectionReason
+      }
+
+      galleryMedia {
+        imageId
+        salonId
+        mediaType
+        key
+        objectUrl
+        status
+        uploadedAt
+        approvedAt
+        approvedBy
+        rejectedAt
+        rejectedBy
+        rejectionReason
+      }
+
       distance
       salonStatus
       minServicePrice
