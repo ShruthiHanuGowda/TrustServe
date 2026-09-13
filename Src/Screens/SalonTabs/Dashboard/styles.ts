@@ -17,7 +17,7 @@ export default StyleSheet.create({
   ========================= */
 
   header: {
-    backgroundColor: PRIMARY,
+    // backgroundColor: PRIMARY,
     paddingHorizontal: 20,
     paddingTop: 25,
     paddingBottom: 35,
@@ -31,8 +31,8 @@ export default StyleSheet.create({
   },
 
   salonName: {
-    color: '#FFFFFF',
-    fontSize: 28,
+    color: '#000000',
+    fontSize: 17,
     fontWeight: '700',
     marginTop: 6,
   },
@@ -41,14 +41,10 @@ export default StyleSheet.create({
     position: 'absolute',
     right: 20,
     top: 20,
-
     width: 44,
     height: 44,
-
     borderRadius: 22,
-
     backgroundColor: 'rgba(255,255,255,0.18)',
-
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -58,13 +54,12 @@ export default StyleSheet.create({
   ========================= */
 
   sectionTitle: {
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: '700',
     color: '#111827',
-
     marginHorizontal: 20,
-    marginTop: 24,
-    marginBottom: 15,
+    marginTop: 0,
+    marginBottom: 10,
   },
 
   /* =========================

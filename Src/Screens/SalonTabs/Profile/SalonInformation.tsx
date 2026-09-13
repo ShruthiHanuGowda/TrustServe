@@ -577,31 +577,31 @@ export default function SalonInformation() {
     );
 
     const testImageUrl = async (url: any) => {
-    if (!url) {
-        console.log('[S3 TEST] No URL');
-        return;
-    }
+        if (!url) {
+            console.log('[S3 TEST] No URL');
+            return;
+        }
 
-    console.log('[S3 TEST] Starting request');
+        console.log('[S3 TEST] Starting request');
 
-    try {
-        const response = await fetch(url);
+        try {
+            const response = await fetch(url);
 
-        console.log('[S3 TEST] HTTP status:', response.status);
-        console.log('[S3 TEST] OK:', response.ok);
-        console.log(
-            '[S3 TEST] Content-Type:',
-            response.headers.get('content-type'),
-        );
+            console.log('[S3 TEST] HTTP status:', response.status);
+            console.log('[S3 TEST] OK:', response.ok);
+            console.log(
+                '[S3 TEST] Content-Type:',
+                response.headers.get('content-type'),
+            );
 
-        const blob = await response.blob();
+            const blob = await response.blob();
 
-        console.log('[S3 TEST] Blob size:', blob.size);
-        console.log('[S3 TEST] Blob type:', blob.type);
-    } catch (error) {
-        console.error('[S3 TEST] FAILED:', error);
-    }
-};
+            console.log('[S3 TEST] Blob size:', blob.size);
+            console.log('[S3 TEST] Blob type:', blob.type);
+        } catch (error) {
+            console.error('[S3 TEST] FAILED:', error);
+        }
+    };
     useEffect(() => {
         if (data?.getSalon?.logoUrl) {
             console.log('[S3 TEST] Testing logo URL...');
@@ -3056,37 +3056,32 @@ export default function SalonInformation() {
                                 styles.logoRow
                             }
                         >
-                            <View
-                                style={
-                                    styles.logoPreview
-                                }
-                            >
+                            <View style={styles.logoPreview}>
                                 {logoUrl ? (
                                     <Image
-                                        source={{
-                                            uri: logoUrl,
+                                        source={{ uri: logoUrl }}
+                                        style={{
+                                            width: 120,
+                                            height: 120,
+                                            borderRadius: 60,
                                         }}
-                                        style={
-                                            styles.logoImage
+                                        resizeMode="contain"
+                                        onLoad={() =>
+                                            console.log('[IMAGE] ===== LOGO LOADED =====')
                                         }
-                                        onLoad={() => console.log('[IMAGE] LOGO LOADED')}
-                                        onError={(e) =>
-                                            console.log('[IMAGE] LOGO ERROR:', e.nativeEvent)
+                                        onError={e =>
+                                            console.log(
+                                                '[IMAGE] ===== LOGO ERROR =====',
+                                                e.nativeEvent,
+                                            )
                                         }
                                     />
                                 ) : (
-                                    <Text
-                                        style={
-                                            styles.logoPlaceholder
-                                        }
-                                    >
-                                        {getInitials(
-                                            salonName,
-                                        )}
+                                    <Text style={styles.logoPlaceholder}>
+                                        {getInitials(salonName)}
                                     </Text>
                                 )}
                             </View>
-
                             <View
                                 style={
                                     styles.logoActions

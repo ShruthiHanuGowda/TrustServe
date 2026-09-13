@@ -9,9 +9,9 @@ export default StyleSheet.create({
   },
 
   header: {
-    backgroundColor: PRIMARY,
+    // backgroundColor: PRIMARY,
     paddingHorizontal: 20,
-    paddingTop: 20,
+    paddingTop: 30,
     paddingBottom: 25,
     borderBottomLeftRadius: 25,
     borderBottomRightRadius: 25,
@@ -64,9 +64,9 @@ export default StyleSheet.create({
   // },
 
   title: {
-    fontSize: 28,
+    fontSize: 18,
     fontWeight: '700',
-    color: '#FFF',
+    color: '#000',
   },
 
   search: {
@@ -87,18 +87,20 @@ export default StyleSheet.create({
   },
 
   filterContainer: {
-    flexDirection: 'row',
-    paddingHorizontal: 20,
-    marginBottom: 18,
-  },
+  flexDirection: 'row',
+  paddingHorizontal: 20,
+  marginBottom: 18,
+},
 
-  filterButton: {
-    paddingHorizontal: 18,
-    paddingVertical: 10,
-    backgroundColor: '#E5E7EB',
-    borderRadius: 25,
-    marginRight: 10,
-  },
+filterButton: {
+  flex: 1,
+  paddingVertical: 10,
+  backgroundColor: '#E5E7EB',
+  borderRadius: 25,
+  marginRight: 6,
+  alignItems: 'center',
+  justifyContent: 'center',
+},
 
   filterButtonActive: {
     backgroundColor: PRIMARY,

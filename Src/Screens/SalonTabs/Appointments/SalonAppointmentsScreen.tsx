@@ -228,7 +228,7 @@ export default function SalonAppointmentsScreen() {
 
       <View style={styles.header}>
         <Text style={styles.title}>
-          Appointments
+          Appointment
         </Text>
       </View>
 

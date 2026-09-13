@@ -293,7 +293,7 @@ const styles = StyleSheet.create({
         fontSize: FONT_SIZES.medium,
         lineHeight: FONT_SIZES.small + 10,
         fontWeight: '600',
-        color: COLORS.highlight,
+        color: COLORS.themeColor,
         marginLeft: 5,
         includeFontPadding: false,
     },

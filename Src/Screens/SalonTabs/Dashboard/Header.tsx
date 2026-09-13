@@ -37,13 +37,13 @@ export default function Header({
         <TouchableOpacity
           style={styles.notificationButton}
           activeOpacity={0.8}>
-          <Text style={{ fontSize: 20 }}>
+          <Text style={{ fontSize: 18 }}>
             🔔
           </Text>
         </TouchableOpacity>
 
         {/* Profile / Salon Logo */}
-        {logoUrl ? (
+        {/* {logoUrl ? (
           <Image
             source={{
               uri: logoUrl,
@@ -92,7 +92,7 @@ export default function Header({
                 .toUpperCase()}
             </Text>
           </View>
-        )}
+        )} */}
 
         {/* Salon Name */}
         <Text style={styles.salonName}>
@@ -100,7 +100,7 @@ export default function Header({
         </Text>
 
         {/* Owner Name */}
-        <Text
+        {/* <Text
           style={{
             color: '#FFFFFF',
             marginTop: 4,
@@ -108,14 +108,14 @@ export default function Header({
             fontWeight: '500',
           }}>
           {ownerName || 'Owner'}
-        </Text>
+        </Text> */}
 
         {/* Date */}
         <Text
           style={{
-            color: '#E5E7EB',
-            marginTop: 8,
-            fontSize: 15,
+            color: '#000000',
+            marginTop: 2,
+            fontSize: 12,
           }}>
           {formattedDate}
         </Text>
@@ -127,45 +127,45 @@ export default function Header({
    * If a cover photo exists, use it as the
    * complete dashboard header background.
    */
-  if (coverImageUrl) {
-    return (
-      <ImageBackground
-        source={{
-          uri: coverImageUrl,
-        }}
-        style={styles.header}
-        imageStyle={{
-          borderBottomLeftRadius: 24,
-          borderBottomRightRadius: 24,
-        }}
-        resizeMode="cover"
-        onError={error => {
-          console.log(
-            '[DashboardHeader] Cover image failed:',
-            error?.nativeEvent,
-          );
-          console.log(
-            '[DashboardHeader] coverImageUrl:',
-            coverImageUrl,
-          );
-        }}>
-        {/* Dark overlay so text remains readable */}
-        <View
-          style={{
-            flex: 1,
-            width: '100%',
-            backgroundColor: 'rgba(0, 0, 0, 0.40)',
-            alignItems: 'center',
-            justifyContent: 'center',
-            paddingVertical: 25,
-            borderBottomLeftRadius: 24,
-            borderBottomRightRadius: 24,
-          }}>
-          {renderHeaderContent()}
-        </View>
-      </ImageBackground>
-    );
-  }
+  // if (coverImageUrl) {
+  //   return (
+  //     <ImageBackground
+  //       source={{
+  //         uri: coverImageUrl,
+  //       }}
+  //       style={styles.header}
+  //       imageStyle={{
+  //         borderBottomLeftRadius: 24,
+  //         borderBottomRightRadius: 24,
+  //       }}
+  //       resizeMode="cover"
+  //       onError={error => {
+  //         console.log(
+  //           '[DashboardHeader] Cover image failed:',
+  //           error?.nativeEvent,
+  //         );
+  //         console.log(
+  //           '[DashboardHeader] coverImageUrl:',
+  //           coverImageUrl,
+  //         );
+  //       }}>
+  //       {/* Dark overlay so text remains readable */}
+  //       <View
+  //         style={{
+  //           flex: 1,
+  //           width: '100%',
+  //           backgroundColor: 'rgba(0, 0, 0, 0.40)',
+  //           alignItems: 'center',
+  //           justifyContent: 'center',
+  //           paddingVertical: 25,
+  //           borderBottomLeftRadius: 24,
+  //           borderBottomRightRadius: 24,
+  //         }}>
+  //         {renderHeaderContent()}
+  //       </View>
+  //     </ImageBackground>
+  //   );
+  // }
 
   /*
    * Fallback when no cover photo exists.
