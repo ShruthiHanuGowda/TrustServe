@@ -303,7 +303,7 @@ export default StyleSheet.create({
   // },
 
   profileName: {
-    fontSize: 24,
+    fontSize: 18,
     fontWeight: '700',
     color: '#FFF',
   },

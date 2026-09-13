@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 
 import styles from './styles';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 type Props = {
   salonName: string;
@@ -33,14 +34,46 @@ export default function Header({
   const renderHeaderContent = () => {
     return (
       <>
-        {/* Notification */}
-        <TouchableOpacity
-          style={styles.notificationButton}
-          activeOpacity={0.8}>
-          <Text style={{ fontSize: 18 }}>
-            🔔
-          </Text>
-        </TouchableOpacity>
+        {/* Header Top Row */}
+        <View style={styles.headerTopRow}>
+          {/* Salon Information */}
+          <View style={styles.salonInfo}>
+            {/* Salon Name */}
+            <Text style={styles.salonName}>
+              {salonName || 'Your Salon'}
+            </Text>
+
+            {/* Date */}
+            <Text
+              style={{
+                color: '#000000',
+                marginTop: 2,
+                fontSize: 12,
+              }}>
+              {formattedDate}
+            </Text>
+          </View>
+
+          {/* Notification */}
+          <TouchableOpacity
+            style={styles.notificationButton}
+            activeOpacity={0.75}
+            onPress={() => {
+              // Open notifications
+            }}>
+            <Ionicons
+              name="notifications"
+              size={22}
+              color="#1F2937"
+            />
+
+            <View style={styles.notificationBadge}>
+              <Text style={styles.notificationBadgeText}>
+                3
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </View>
 
         {/* Profile / Salon Logo */}
         {/* {logoUrl ? (
@@ -95,9 +128,9 @@ export default function Header({
         )} */}
 
         {/* Salon Name */}
-        <Text style={styles.salonName}>
+        {/* <Text style={styles.salonName}>
           {salonName || 'Your Salon'}
-        </Text>
+        </Text> */}
 
         {/* Owner Name */}
         {/* <Text
@@ -111,14 +144,14 @@ export default function Header({
         </Text> */}
 
         {/* Date */}
-        <Text
+        {/* <Text
           style={{
             color: '#000000',
             marginTop: 2,
             fontSize: 12,
           }}>
           {formattedDate}
-        </Text>
+        </Text> */}
       </>
     );
   };

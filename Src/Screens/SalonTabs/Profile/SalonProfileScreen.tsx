@@ -713,7 +713,7 @@ export default function SalonProfileScreen() {
                         styles.profileHeader,
                         {
                             overflow: 'hidden',
-                            minHeight: 250,
+                            minHeight: 180,
                             justifyContent: 'flex-end',
                             alignItems: 'center',
                         },
@@ -796,7 +796,7 @@ export default function SalonProfileScreen() {
                         OWNER NAME
                     ---------------------------------------------- */}
 
-                    <Text
+                    {/* <Text
                         style={[
                             styles.profileRole,
                             {
@@ -814,7 +814,7 @@ export default function SalonProfileScreen() {
                         ]}
                     >
                         Owner • {ownerName}
-                    </Text>
+                    </Text> */}
                 </ImageBackground>
 
                 {/* ==================================================

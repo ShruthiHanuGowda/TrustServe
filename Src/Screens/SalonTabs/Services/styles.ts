@@ -9,18 +9,18 @@ export default StyleSheet.create({
     },
 
     header: {
-        backgroundColor: PRIMARY,
+        // backgroundColor: PRIMARY,
         paddingHorizontal: 20,
-        paddingTop: 20,
-        paddingBottom: 28,
+        paddingTop: 25,
+        paddingBottom: 0,
         borderBottomLeftRadius: 25,
         borderBottomRightRadius: 25,
     },
 
     title: {
-        fontSize: 28,
+        fontSize: 18,
         fontWeight: '700',
-        color: '#FFF',
+        color: '#000',
     },
 
     searchContainer: {

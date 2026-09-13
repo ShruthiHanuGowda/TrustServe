@@ -37,18 +37,69 @@ export default StyleSheet.create({
     marginTop: 6,
   },
 
-  notificationButton: {
-    position: 'absolute',
-    right: 20,
-    top: 20,
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    backgroundColor: 'rgba(255,255,255,0.18)',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+headerTopRow: {
+  width: '100%',
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+},
 
+salonInfo: {
+  flex: 1,
+  alignItems: 'flex-start',
+},
+
+notificationButton: {
+  width: 44,
+  height: 44,
+  borderRadius: 14,
+  backgroundColor: '#FFFFFF',
+  alignItems: 'center',
+  justifyContent: 'center',
+  position: 'relative',
+
+  // Subtle professional elevation
+  elevation: 4,
+
+  // iOS shadow
+  shadowColor: '#000',
+  shadowOffset: {
+    width: 0,
+    height: 2,
+  },
+  shadowOpacity: 0.08,
+  shadowRadius: 6,
+
+  marginLeft: 16,
+},
+
+notificationBadge: {
+  position: 'absolute',
+  top: 3,
+  right: 2,
+
+  minWidth: 18,
+  height: 18,
+  borderRadius: 9,
+
+  backgroundColor: '#E53935',
+
+  alignItems: 'center',
+  justifyContent: 'center',
+
+  paddingHorizontal: 4,
+
+  borderWidth: 2,
+  borderColor: '#FFFFFF',
+},
+
+notificationBadgeText: {
+  color: '#FFFFFF',
+  fontSize: 9,
+  fontWeight: '800',
+  lineHeight: 12,
+  textAlign: 'center',
+},
   /* =========================
         SECTION
   ========================= */
